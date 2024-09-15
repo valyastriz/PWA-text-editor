@@ -18,7 +18,11 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+      // HTML Plugin to inject the bundles into the HTML file
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title: 'JATE - Text Editor',
+      }),
     ],
 
     module: {
