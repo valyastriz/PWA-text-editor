@@ -26,15 +26,15 @@ export const putDb = async (content) => {
   // Open up the desired object store
   const store = tx.objectStore('jate');
 
-  // Use the .put() method to update or add data to the store
+  // Use the .put() method to update or add data to the store with a specific id
   const request = store.put({ id: 1, content: content });
 
   // Confirm the request
   const result = await request;
-  console.log('Data saved to the database', result);
+  console.log('🚀 - Data saved to the database', result);
 };
 
-// Logic for getting all content from the database
+// Logic for getting the content from the database
 export const getDb = async () => {
   console.log('GET from the database');
 
@@ -47,13 +47,13 @@ export const getDb = async () => {
   // Open up the desired object store
   const store = tx.objectStore('jate');
 
-  // Use the .getAll() method to get all data from the store
-  const request = store.getAll();
+  // Use the .get() method to get data by id
+  const request = store.get(1);
 
-  // Confirm the request
+  // Confirm the request and return the content
   const result = await request;
-  console.log('Data retrieved from the database', result);
-  return result.content;
+  console.log('🚀 - Data retrieved from the database', result);
+  return result?.content;  // Return the content if it exists
 };
 
 // Call initdb() to initialize the database
