@@ -52,7 +52,31 @@ module.exports = () => {
 
     module: {
       rules: [
-        
+        // Babel loader to transpile ES6+ code into backwards-compatible JavaScript
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-transform-runtime'],
+            },
+          },
+        },
+        // CSS loader to bundle CSS files into JavaScript 
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
+        // File loader for handling images 
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'assets/images/[hash][ext][query]',
+          },
+        },
       ],
     },
   };
