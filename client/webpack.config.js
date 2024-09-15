@@ -23,6 +23,31 @@ module.exports = () => {
         template: './index.html',
         title: 'JATE - Text Editor',
       }),
+
+      // Webpack PWA Manifest to generate manifest.json file
+      new WebpackPwaManifest({
+        name: 'Text Editor',
+        short_name: 'JATE',
+        description: 'A Progressive Web App text editor',
+        background_color: '#ffffff',
+        start_url: './',
+        publicPath: './',
+        fingerprints: false,
+        inject: true,
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'),
+          },
+        ],
+      }),
+
+      // Workbox InjectManifest plugin to inject the customer service worker
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js',
+      }),
     ],
 
     module: {
