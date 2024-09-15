@@ -8,8 +8,8 @@ module.exports = () => {
     mode: 'development',
     // Entry points for the main app and install logic
     entry: {
-      main: './client/src/js/index.js',  
-      install: './client/src/js/install.js' 
+      main: './src/js/index.js',  
+      install: './src/js/install.js' 
     },
     // Output directory and filename structure
     output: {
@@ -21,7 +21,7 @@ module.exports = () => {
     plugins: [
       // HTML Plugin to inject the bundles into the HTML file
       new HtmlWebpackPlugin({
-        template: './client/index.html', 
+        template: './index.html', 
         title: 'JATE - Text Editor',
       }),
 
@@ -37,7 +37,7 @@ module.exports = () => {
         inject: true, // Automatically inject the manifest into the HTML
         icons: [
           {
-            src: path.resolve('client/src/images/logo.png'), 
+            src: path.resolve('src/images/logo.png'), 
             sizes: [96, 128, 192, 256, 384, 512], // Icon sizes for different devices
             destination: path.join('assets', 'icons'),
           },
