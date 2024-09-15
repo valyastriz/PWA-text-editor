@@ -6,23 +6,26 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 module.exports = () => {
   return {
     mode: 'development',
+    // Entry points for the main app and install logic
     entry: {
-      main: './src/js/index.js',
-      install: './src/js/install.js',
+      main: './client/src/js/index.js',   // Corrected the path to the client/src folder
+      install: './client/src/js/install.js' // Corrected the path to the client/src folder
     },
+    // Output directory and filename structure
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
-    devtool: 'source-map',  // Add source maps for easier debugging
+    // Enable source maps for easier debugging
+    devtool: 'source-map',
     plugins: [
       // HTML Plugin to inject the bundles into the HTML file
       new HtmlWebpackPlugin({
-        template: './index.html',
+        template: './client/index.html',  // Corrected the path to the client/index.html
         title: 'JATE - Text Editor',
       }),
 
-      // Webpack PWA Manifest to generate manifest.json file
+      // Webpack PWA Manifest to generate manifest.json file for the PWA
       new WebpackPwaManifest({
         name: 'Text Editor',
         short_name: 'JATE',
@@ -30,21 +33,21 @@ module.exports = () => {
         background_color: '#ffffff',
         start_url: '/',
         publicPath: '/',
-        fingerprints: false,
-        inject: true,
+        fingerprints: false, // Disabling hashing for filenames
+        inject: true, // Automatically inject the manifest into the HTML
         icons: [
           {
-            src: path.resolve('src/images/logo.png'),
-            sizes: [96, 128, 192, 256, 384, 512],
+            src: path.resolve('client/src/images/logo.png'), // Corrected the path to the logo image
+            sizes: [96, 128, 192, 256, 384, 512], // Icon sizes for different devices
             destination: path.join('assets', 'icons'),
           },
         ],
       }),
 
-      // Workbox InjectManifest plugin to inject the customer service worker
+      // InjectManifest to inject the custom service worker
       new InjectManifest({
-        swSrc: './src-sw.js',
-        swDest: 'src-sw.js',
+        swSrc: './src-sw.js',  // Custom service worker file
+        swDest: 'src-sw.js',   // Destination for the service worker in the output folder
       }),
     ],
 
@@ -67,12 +70,12 @@ module.exports = () => {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
         },
-        // File loader for handling images 
+        // File loader for handling image files like PNG, SVG, JPG, etc.
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: 'asset/resource',
           generator: {
-            filename: 'assets/images/[hash][ext][query]',
+            filename: 'assets/images/[hash][ext][query]', // Path for the bundled images
           },
         },
       ],
