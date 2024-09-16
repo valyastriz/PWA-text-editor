@@ -27,7 +27,7 @@ module.exports = () => {
 
       // Webpack PWA Manifest to generate manifest.json file for the PWA
       new WebpackPwaManifest({
-        name: 'Text Editor',
+        name: 'JATE Text Editor',
         short_name: 'JATE',
         description: 'A Progressive Web App text editor',
         background_color: '#ffffff',
